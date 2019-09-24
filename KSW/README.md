@@ -1,2 +1,1 @@
-#### Github : 
-#### "n차 스터디" 디렉토리 만들어서 업로드하기 
+#### Github : https://github.com/wanilly/TAVE_4_2_Algorithm_study
