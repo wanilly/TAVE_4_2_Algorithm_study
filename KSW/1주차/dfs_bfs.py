@@ -8,3 +8,58 @@
 # !출력은 첫째 줄에 DFS를 수행한 결과를, 그 다음 줄에는 BFS를 수행한 결과를 출력한다. V부터 방문된 점을 순서대로 출력한다.
 
 # 용어: DFS는 깊이우선탐색(Depth First Search)이고 BFS는 너비우선탐색(Breadth First Search)를 의미한다.
+
+
+
+dic = {}
+
+def setdic(m):
+    for _ in range(0, m):
+        node_A, node_B = map(int, input().splite())
+        if not node_A in dic:
+            dic[node_A] = set([])
+        if not node_B in dic:
+            dif[node_B] = set([])
+
+        dic[node_A].add(node_A)
+        dic[node_B].add(node_B)
+
+# 방문했던 노드를 기억하는 배열 visited 와 현재 노드들이 쌓여있는 스택 temp 를 만든다.
+def bfs(s):
+    if not s in dic:
+        print(s)
+        return
+
+    visited = []
+    temp = [s]
+    while temp :
+        n = temp.pop(0) # 큐 출력
+        if not n in visited : # 순회하면서 방문하지 않은 노드의 자식 노드들을 스택에 쌓는다. 자식노드들을 쌓을 때 현재 방문했던 노드와 차집합하여 또 방문하는 일이 없도록 한다.
+            visited.append(n) # 자료 입력
+            temp.extend(sorted(list(dic[n] - set(visited)))) # set 자료형은 순서를 보장하지 않기 때문에 정렬을 해주면서 쌓는다.
+    visited = list(map(str, visited))  # 방문하지 않은 노드는 set를 이용하면 쉽게 구현가능
+    print(" ".join(visited))
+
+
+def dfs(s):
+    if not s in dic :
+        print(s)
+        return
+    visited = []
+    temp = [s]
+    while temp :
+        n = temp.pop()
+        if not n in visited :
+            visited.append(n)
+            temp.extend(sorted(list(dic[n] - set(visited)), reverse=True)) # 작은 노드부터 탐색하기 위해 sorted 에 reverse 옵션을 사용
+    visited = list(map(str, visited))
+    print(" ".join(visited))
+
+
+def main () :
+    n, m, v = map(int, input().split())
+    setdic(m)
+    dfs(v)
+    bfs(v)
+
+main()
